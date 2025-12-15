@@ -136,7 +136,7 @@ def LOF_GBG(gb_now):
 def GBFES(data, sigma, lammda):
     # Input:
     # data is data matrix without decisions, where rows for samples and columns for attributes.
-    # epsilon is a given parameter for calculating the fuzzy similarity relation.
+    # sigma is a given parameter for calculating the fuzzy similarity relation.
     # lammda is a trade-off factor between the LOF of the sample and the fuzzy relative entropy of the GB to which the sample belongs.
 
     # 0.min-max normalization
@@ -216,3 +216,15 @@ def GBFES(data, sigma, lammda):
                                     LOF_list[data_xuhao_list.index(x)]
 
     return samples_scores.reshape(-1)
+
+if __name__ == '__main__':
+    sigma = 8   # Set the parameter for calculating the fuzzy similarity relation.
+    lammda = 0.35  # Set the trade-off factor between the LOF of the sample and the fuzzy relative entropy of the GB to which the sample belongs.
+
+    data_name = 'iris_Irisvirginica_11_variant1'
+    Exmaple = io.loadmat(r"..\\datasets\\" + data_name)
+    data = Exmaple['trandata'][:, :-1]  # data
+    target = Exmaple['trandata'][:, -1]  # label
+
+    samples_scores = GBFES(data, sigma, lammda)
+    print(samples_scores)
